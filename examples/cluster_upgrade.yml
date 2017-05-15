@@ -1,0 +1,21 @@
+---
+- name: oVirt cluster upgrade
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    engine_url: https://ondra.local:8443/ovirt-engine/api
+    engine_user: admin@internal
+    engine_password: 123456
+
+    force_pinned: true
+
+    host_statuses:
+      - up
+
+    host_names:
+      - host2
+
+  roles:
+    - ovirt-cluster-upgrade
