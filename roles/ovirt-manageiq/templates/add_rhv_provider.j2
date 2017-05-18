@@ -1,0 +1,19 @@
+{
+  "type": "ManageIQ::Providers::Redhat::InfraManager",
+  "name": "{{ miq_provider_name }}",
+  "hostname"  : "{{ ovirt_fqdn }}",
+  "credentials": {
+    "userid": "{{ ovirt_user }}",
+    "password" : "{{ ovirt_password }}"
+  },
+  {% if '-fine-' in miq_qcow_url %}
+    "connection_configurations": [{
+      "endpoint": {
+        "verify_ssl": {{ ovirt_ca is defined }}
+      }
+    }],
+    {% if ovirt_ca is defined %}
+    "certificate_authority": "{{ lookup('file', ovirt_ca ) | regex_replace('\n', '\\n') }}",
+    {% endif %}
+  {% endif %}
+}
